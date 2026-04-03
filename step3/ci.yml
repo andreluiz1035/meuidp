@@ -1,0 +1,27 @@
+name: Deploy ACI
+
+on:
+  push:
+    paths:
+      - 'step3/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_MCSE }}
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./step3
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: ./step3
