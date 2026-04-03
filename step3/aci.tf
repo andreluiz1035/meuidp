@@ -27,7 +27,7 @@ resource "azurerm_container_group" "app" {
     }
   }
 
-  ip_address_type = "public"
+  ip_address_type = "Public"
   dns_name_label  = "${var.aci_name}-dns"
 
   image_registry_credential {
