@@ -24,7 +24,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./step1_infra
+        working-directory: ./step1
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
