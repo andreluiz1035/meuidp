@@ -3,7 +3,7 @@ name: Terraform Step1
 on:
   push:
     paths:
-      - 'step1_infra/**'
+      - 'step1/**'
 
 jobs:
   terraform:
