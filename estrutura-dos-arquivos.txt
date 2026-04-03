@@ -1,0 +1,14 @@
+meuidp3/
+├─ step1_infra/        # Infraestrutura: RG + ACR + ACI (Terraform)
+│   ├─ main.tf
+│   ├─ variables.tf
+│   ├─ outputs.tf
+│   ├─ backend.tf      # opcional, para tfstate remoto
+├─ step2_build/        # Criar a imagem do container e subir no ACR
+│   ├─ Dockerfile
+│   ├─ build.yml       # GitHub Actions workflow para build
+├─ step3_deploy/       # Pega a imagem do ACR e dá deploy no ACI
+│   ├─ main.tf
+│   ├─ variables.tf
+│   ├─ outputs.tf
+│   ├─ backend.tf      # apontando para tfstate remoto, se quiser
