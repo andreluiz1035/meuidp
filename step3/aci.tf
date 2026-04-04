@@ -33,6 +33,6 @@ resource "azurerm_container_group" "app" {
   image_registry_credential {
     server   = "meuacr123xyz.azurecr.io"
     username = "meuacr123xyz"
-    password = "Ca4uq1Y5Bm3xZIKW2xdsH5d4a1qi9pItV2uE9ytxUSww3LsMXa4QJQQJ99CDACZoyfiEqg7NAAACAZCRWaZ3"
+    password = "3XUUuinBBiEdTWk5Zkmq89cMvbj1JUfIAbstsMGaucJzxcAnJajKJQQJ99CDACZoyfiEqg7NAAACAZCRK7Xo"
   }
 }
