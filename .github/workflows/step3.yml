@@ -1,6 +1,6 @@
 name: Deploy ACI
 
-#on:
+on:
   push:
     paths:
       - 'step3/**'
