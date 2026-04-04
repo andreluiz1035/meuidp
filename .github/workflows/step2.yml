@@ -1,7 +1,7 @@
 name: Build and Push PHP Container
 
-on:
-  push:
+#on:
+#  push:
     paths:
       - 'step2/**'
 
