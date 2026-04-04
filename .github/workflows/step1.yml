@@ -1,6 +1,6 @@
 name: Terraform Step1
 
-on:
+#on:
   push:
     paths:
       - 'step1/**'
