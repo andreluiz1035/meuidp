@@ -1,9 +1,9 @@
 name: Build and Push PHP Container
 
-#on:
+on:
   push:
     paths:
-      - 'step2/**'
+      - 'step2/trigger.txt'
 
 jobs:
   build:
