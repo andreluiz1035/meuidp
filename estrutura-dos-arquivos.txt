@@ -1,5 +1,5 @@
 meuidp3/
-├─ step1_infra/        # Infraestrutura: RG + ACR + ACI (Terraform)
+├─ step1_infra do ambiente da aplicação/        # Infraestrutura: RG + ACR + ACI (Terraform)
 │   ├─ main.tf
 │   ├─ variables.tf
 │   ├─ outputs.tf
@@ -12,3 +12,6 @@ meuidp3/
 │   ├─ variables.tf
 │   ├─ outputs.tf
 │   ├─ backend.tf      # apontando para tfstate remoto, se quiser
+
+|- step3_infra do ambiente do idp
+
