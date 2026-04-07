@@ -7,8 +7,8 @@ meuidp3/
 ├─ step2_build/        # Criar a imagem do container e subir no ACR
 │   ├─ Dockerfile
 │   ├─ build.yml       # GitHub Actions workflow para build
-├─ step3_deploy/       # Pega a imagem do ACR e dá deploy no ACI
-│   ├─ main.tf
+├─ step3_deploy/       # Pega a imagem do ACR e dá deploy no ACI - 
+│   ├─ aci.tf           # Atualizar a senha do acr ao subir o ambiente.
 │   ├─ variables.tf
 │   ├─ outputs.tf
 │   ├─ backend.tf      # apontando para tfstate remoto, se quiser
