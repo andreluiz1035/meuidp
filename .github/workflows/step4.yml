@@ -3,7 +3,7 @@ name: Terraform Step4
 on:
   push:
     paths:
-      - 'Step4/trigger.txt'
+      - 'step4/trigger.txt'
 
 jobs:
   terraform:
