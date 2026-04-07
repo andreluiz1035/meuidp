@@ -12,6 +12,8 @@ meuidp3/
 │   ├─ variables.tf
 │   ├─ outputs.tf
 │   ├─ backend.tf      # apontando para tfstate remoto, se quiser
-
-|- step3_infra do ambiente do idp
-
+|
+|- step4_infra do ambiente do idp
+    |- idp.tf cria o grupo de recursos 
+    |- variables.tf 
+    

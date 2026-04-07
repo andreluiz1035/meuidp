@@ -3,5 +3,5 @@ variable "location" {
 }
 
 variable "rg_name" {
-  default = "rg-acr"
+  default = "rg-idp"
 }
