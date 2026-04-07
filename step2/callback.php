@@ -2,7 +2,7 @@
 session_start();
 
 // 🔴 ALTERE AQUI PARA O DNS DO IDP
-$IDP_URL = "http://idp-container.eastus.azurecontainer.io";
+$IDP_URL = "http://tiririca-aci-dns.eastus.azurecontainer.io";
 
 $code = $_GET['code'] ?? null;
 
