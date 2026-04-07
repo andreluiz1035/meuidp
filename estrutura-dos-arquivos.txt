@@ -16,4 +16,13 @@ meuidp3/
 |- step4_infra do ambiente do idp
     |- idp.tf cria o grupo de recursos 
     |- variables.tf 
+    idp/
+
+
+|- step5_deploy cria a imagem do conteiner do idp    
+ ├── users.json
+ ├── login.php
+ ├── authorize.php
+ ├── token.php
+ ├── utils.php
     
