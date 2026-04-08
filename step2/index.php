@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-$IDP_URL = "http://meuidp123xyz-aci-dns.eastus.azurecontainer.io";
-$REDIRECT_URI = "http://meuapp123xyz-aci-dns.eastus.azurecontainer.io/callback.php";
+$IDP_URL = "http://meuidp123xyz-aci-dns-dns.brazilsouth.azurecontainer.io";
+$REDIRECT_URI = "http://meuapp123xyz-aci-dns-dns.brazilsouth.azurecontainer.io/callback.php";
 
 if (!isset($_SESSION['user'])) {
     $authorize_url = $IDP_URL . "/authorize.php?" . http_build_query([
