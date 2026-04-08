@@ -16,7 +16,7 @@ resource "azurerm_container_group" "app" {
   os_type             = "Linux"
 
   container {
-    name   = "tiririca"
+    name   = "meuapp123xyz-aci-dns"
     image  = var.container_image
     cpu    = "0.5"
     memory = "1.0"
@@ -33,6 +33,6 @@ resource "azurerm_container_group" "app" {
   image_registry_credential {
     server   = "meuacr123xyz.azurecr.io"
     username = "meuacr123xyz"
-    password = "BKeCHY860zqRMdZf2jBCKK5GLcJjN3Rr6wivzHudxLt485Do7L2tJQQJ99CDACZoyfiEqg7NAAACAZCR1gr3"
+    password = "5af4aUxSuJpPZsBJTB13YFGQwFvt6kx1crYJBItc9p9Juzuo5ZewJQQJ99CDACZoyfiEqg7NAAACAZCRYozp"
   }
 }

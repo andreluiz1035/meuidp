@@ -1,5 +1,5 @@
 variable "aci_name" {
-  default = "tiririca-aci"
+  default = "meuapp123xyz-aci-dns"
 }
 
 variable "aci_resource_group" {
