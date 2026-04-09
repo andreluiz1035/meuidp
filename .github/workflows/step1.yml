@@ -2,8 +2,6 @@ name: Terraform Step1
 
 on:
   push:
-    paths:
-      - 'step1/trigger.txt'
 
 jobs:
   terraform:
