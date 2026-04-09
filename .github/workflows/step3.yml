@@ -2,8 +2,8 @@ name: Deploy ACI
 
 on:
   push:
-  paths:
-      - 'step3/trigger.txt'  
+    paths:
+        - 'step3/trigger.txt'  
 
 jobs:
   deploy:
