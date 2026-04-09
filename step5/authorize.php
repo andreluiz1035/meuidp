@@ -33,4 +33,3 @@ $separator = (parse_url($redirect_uri, PHP_URL_QUERY) ? '&' : '?');
 // redireciona corretamente
 header("Location: {$redirect_uri}{$separator}code={$code}");
 exit;
-```
