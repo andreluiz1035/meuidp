@@ -38,7 +38,12 @@ if ($client_id && $client_id !== 'app') {
 */
 
 // Simula usuário associado ao code
-$user = "andre";
+//$user = "andre";
+$user = [
+    "id" => 1,
+    "username" => "andre"
+];
+
 
 // Gera token (função que você já tem no utils.php)
 $token = generateToken($user);

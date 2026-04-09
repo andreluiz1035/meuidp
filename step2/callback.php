@@ -53,9 +53,14 @@ if (!$data || !isset($data['access_token'])) {
 }
 
 // ⚠️ Aqui simplificado (sem validar token de verdade)
-$_SESSION['user'] = [
+/*$_SESSION['user'] = [
     "username" => $data['username'] ?? 'andre'
 ];
+*/
+$_SESSION['user'] = [
+    "username" => $data['username']['username'] ?? 'andre'
+];
+
 
 // (Opcional) salvar token na sessão
 $_SESSION['access_token'] = $data['access_token'];

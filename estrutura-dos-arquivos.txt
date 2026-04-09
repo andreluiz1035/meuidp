@@ -1,3 +1,6 @@
+
+No callback.php vai ter que ir o ip do idp na variavl url.
+
 meuidp3/
 ├─ step1_infra do ambiente da aplicação/        # Infraestrutura: RG + ACR + ACI (Terraform)
 │   ├─ main.tf
