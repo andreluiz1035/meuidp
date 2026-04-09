@@ -1,4 +1,3 @@
-```php
 <?php
 session_start();
 require 'utils.php';
@@ -62,4 +61,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 </html>
-
