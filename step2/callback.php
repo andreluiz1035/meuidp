@@ -2,7 +2,7 @@
 session_start();
 
 // 🔴 URL do IdP (outro container)
-$IDP_URL = "http://meuidp123xyz-aci-dns.eastus.azurecontainer.io";
+$IDP_URL = "http://meuidp123xyz-aci-dns-dns.brazilsouth.azurecontainer.io";
 
 // Pega o 'code' enviado pelo IdP
 $code = $_GET['code'] ?? null;
