@@ -2,9 +2,7 @@ name: Build and Push PHP Container
 
 on:
   push:
-    paths:
-      - 'step5/trigger.txt'
-
+    
 jobs:
   build:
     runs-on: ubuntu-latest
