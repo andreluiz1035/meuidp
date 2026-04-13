@@ -24,6 +24,9 @@ resource "azurerm_container_group" "app" {
   ip_address_type = "Public"
   dns_name_label  = var.aci_name
 
+  # 🔁 Reinício automático (resolve timing do ACR)
+  restart_policy = "Always"
+
   # 🔐 Managed Identity
   identity {
     type = "SystemAssigned"
@@ -32,7 +35,6 @@ resource "azurerm_container_group" "app" {
   container {
     name   = "app"
 
-    # 👇 monta a URL completa automaticamente
     image  = "${data.azurerm_container_registry.acr.login_server}/${var.container_image}"
 
     cpu    = "0.5"
@@ -43,11 +45,6 @@ resource "azurerm_container_group" "app" {
       protocol = "TCP"
     }
   }
-
-  # 👇 garante que a role já foi criada antes de subir o container
-  depends_on = [
-    azurerm_role_assignment.acr_pull
-  ]
 }
 
 # Permissão para o ACI puxar imagem do ACR
