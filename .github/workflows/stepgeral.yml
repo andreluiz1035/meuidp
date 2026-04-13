@@ -8,19 +8,24 @@ on:
 jobs:
   step1:
     uses: ./.github/workflows/step1.yml
+    secrets: inherit
 
   step2:
     needs: step1
     uses: ./.github/workflows/step2.yml
+    secrets: inherit
 
   step3:
     needs: step2
     uses: ./.github/workflows/step3.yml
+    secrets: inherit
 
   step5:
     needs: step3
     uses: ./.github/workflows/step5.yml
+    secrets: inherit
 
   step6:
     needs: step5
     uses: ./.github/workflows/step6.yml
+    secrets: inherit
