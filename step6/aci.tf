@@ -2,22 +2,42 @@ provider "azurerm" {
   features {}
 }
 
-# Cria o Resource Group do ACI
+# Resource Group do ACI
 resource "azurerm_resource_group" "aci" {
   name     = var.aci_resource_group
   location = var.location
 }
 
-# Container Group
+# Referência ao ACR
+data "azurerm_container_registry" "acr" {
+  name                = var.acr_name
+  resource_group_name = var.acr_resource_group
+}
+
+# Container Group (ACI)
 resource "azurerm_container_group" "app" {
   name                = var.aci_name
   location            = azurerm_resource_group.aci.location
   resource_group_name = azurerm_resource_group.aci.name
   os_type             = "Linux"
 
+  ip_address_type = "Public"
+  dns_name_label  = var.aci_name
+
+  # 🔁 evita problema de timing com ACR
+  restart_policy = "Always"
+
+  # 🔐 Managed Identity
+  identity {
+    type = "SystemAssigned"
+  }
+
   container {
-    name   = "meuidp123xyz-aci-dns"
-    image  = var.container_image
+    name = "app"
+
+    # 👇 monta a URL do ACR automaticamente
+    image = "${data.azurerm_container_registry.acr.login_server}/${var.container_image}"
+
     cpu    = "0.5"
     memory = "1.0"
 
@@ -26,13 +46,11 @@ resource "azurerm_container_group" "app" {
       protocol = "TCP"
     }
   }
+}
 
-  ip_address_type = "Public"
-  dns_name_label  = "${var.aci_name}-dns"
-
-  image_registry_credential {
-    server   = "meuacr123xyz.azurecr.io"
-    username = "meuacr123xyz"
-    password =  $(az acr credential show --name meuacr123xyz.azurecr.io --query passwords[0].value -o tsv)
-  }
+# Permissão para puxar imagem do ACR
+resource "azurerm_role_assignment" "acr_pull" {
+  principal_id         = azurerm_container_group.app.identity[0].principal_id
+  role_definition_name = "AcrPull"
+  scope                = data.azurerm_container_registry.acr.id
 }
