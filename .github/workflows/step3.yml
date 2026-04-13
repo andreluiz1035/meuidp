@@ -1,10 +1,10 @@
-name: Deploy ACI
+name: Terraform Step3 (ACI Deploy)
 
 on:
-  workflow_call:  
+  workflow_call:
 
 jobs:
-  deploy:
+  terraform:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,12 +19,22 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.7.5
+          terraform_version: 1.5.0
 
       - name: Terraform Init
         run: terraform init
         working-directory: ./step3
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+      - name: Terraform Apply com Retry
+        run: |
+          for i in 1 2; do
+            echo "=============================="
+            echo "Tentativa $i de deploy"
+            echo "=============================="
+
+            terraform apply -auto-approve && break
+
+            echo "Falhou na tentativa $i. Aguardando 30s antes de tentar novamente..."
+            sleep 300
+          done
         working-directory: ./step3
