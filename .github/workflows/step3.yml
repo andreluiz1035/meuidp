@@ -1,9 +1,7 @@
 name: Deploy ACI
 
 on:
-  push:
-    paths:
-        - 'step3/trigger.txt'  
+  workflow_call:  
 
 jobs:
   deploy:

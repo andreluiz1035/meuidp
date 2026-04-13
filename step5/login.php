@@ -9,7 +9,7 @@ if (isset($_SESSION['user'])) {
 }
 
 $erro = "";
-
+/*Chama GetUsers, que por sua vez lle o arquivo users.json e valida usuário e senha*, redirciona o usuário para a aplicação*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $users = getUsers();
 

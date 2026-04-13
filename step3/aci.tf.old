@@ -16,7 +16,7 @@ resource "azurerm_container_group" "app" {
   os_type             = "Linux"
 
   container {
-    name   = "meuidp123xyz-aci-dns"
+    name   = "meuapp123xyz-aci-dns"
     image  = var.container_image
     cpu    = "0.5"
     memory = "1.0"
@@ -33,6 +33,6 @@ resource "azurerm_container_group" "app" {
   image_registry_credential {
     server   = "meuacr123xyz.azurecr.io"
     username = "meuacr123xyz"
-    password =  $(az acr credential show --name meuacr123xyz.azurecr.io --query passwords[0].value -o tsv)
+    password = $(az acr credential show --name meuacr123xyz.azurecr.io --query passwords[0].value -o tsv)
   }
 }

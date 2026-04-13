@@ -1,9 +1,8 @@
 name: Terraform Step1
 
 on:
-  push:
-    paths:
-        - 'step1/trigger.txt'
+  workflow_call:
+  
 jobs:
   terraform:
     runs-on: ubuntu-latest

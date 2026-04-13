@@ -2,6 +2,9 @@
 session_start();
 require 'utils.php';
 
+/*obtem o id do app (app no nosso caso), e a url pro usuário voltar depois de autenticado */
+
+
 $client_id = $_GET['client_id'] ?? null;
 $redirect_uri = isset($_GET['redirect_uri']) ? urldecode($_GET['redirect_uri']) : null;
 
@@ -17,7 +20,7 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
-// gera code
+// gera code que será enviado ao app cliente.
 $code = generateCode();
 
 // salva code na sessão
@@ -29,6 +32,6 @@ $_SESSION['code'] = [
 // evita quebrar URL que já tem query string
 $separator = (parse_url($redirect_uri, PHP_URL_QUERY) ? '&' : '?');
 
-// redireciona corretamente
+// redireciona corretamente, passando o code
 header("Location: {$redirect_uri}{$separator}code={$code}");
 exit;

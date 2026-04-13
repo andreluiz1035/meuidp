@@ -6,16 +6,8 @@ variable "aci_resource_group" {
   default = "rg-aci"
 }
 
-variable "acr_name" {
-  default = "meuacr123xyz"
-}
-
-variable "acr_resource_group" {
-  default = "rg-acr"
-}
-
 variable "container_image" {
-  default = "tiririca:latest"
+  default = "meuacr123xyz.azurecr.io/tiririca:latest"
 }
 
 variable "location" {

@@ -1,7 +1,7 @@
 
 No callback.php vai ter que ir o ip do idp na variavl url.
 
-meuidp3/
+meuidp5/
 ├─ step1_infra do ambiente da aplicação/        # Infraestrutura: RG + ACR + ACI (Terraform)
 │   ├─ main.tf
 │   ├─ variables.tf
@@ -16,16 +16,39 @@ meuidp3/
 │   ├─ outputs.tf
 │   ├─ backend.tf      # apontando para tfstate remoto, se quiser
 |
-|- step4_infra do ambiente do idp
-    |- idp.tf cria o grupo de recursos 
-    |- variables.tf 
-    idp/
-
-
 |- step5_deploy cria a imagem do conteiner do idp    
  ├── users.json
  ├── login.php
  ├── authorize.php
  ├── token.php
  ├── utils.php
-    
+|- step6_deploy do conteiner do idp    
+ ├── aci.tf
+ ├── variables.tf
+
+
+ Funcionamento do Processo de autenticação:
+
+ 1. Usuário acessa a aplicação
+2. A aplicação verifica se existe $_SESSION['user']
+3. Se não existir, redireciona para o idp no /authorize.php com client_id (app) e redirect_uri (url da aplicação para o 
+usuário voltar).
+4. O authorize.php recebe os parâmetros e verifica se o usuário está logado
+5. Se não estiver logado, redireciona para /login.php
+6. O usuário faz login no login.php
+7. Se o login estiver correto, cria $_SESSION['user']
+8. O usuário volta para o authorize.php
+9. O authorize.php gera um code de autorização
+10. O code é salvo na sessão junto com o usuário
+11. O usuário é redirecionado de volta para o redirect_uri com o code na URL, volta para a aplicação.
+12. A aplicação recebe o code
+13. A aplicação envia o code para o token.php no idp (conexão TPC entra a aplicação e o idp, sem passar pelo browser 
+do usuário)
+14. token.php valida o code
+15. token.php devolve um access_token
+16. A aplicação valida o acess_token. Ele veio assinado com a chave privada do idp.
+A aplicação valida a assinatura com a chave publica do idp.
+Verifica se é para o usuário, se nao está expirado nem corrompido, se está ativo, e role (escopo de acesso)
+17. A aplicação usa o access_token para autenticar o usuário 
+
+

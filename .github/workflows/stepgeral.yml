@@ -1,0 +1,26 @@
+name: Pipeline
+
+on:
+  push:
+    paths:
+      - 'README.md'
+
+jobs:
+  step1:
+    uses: ./.github/workflows/step1.yml
+
+  step2:
+    needs: step1
+    uses: ./.github/workflows/step2.yml
+
+  step3:
+    needs: step2
+    uses: ./.github/workflows/step3.yml
+
+  step5:
+    needs: step3
+    uses: ./.github/workflows/step5.yml
+
+  step6:
+    needs: step5
+    uses: ./.github/workflows/step6.yml

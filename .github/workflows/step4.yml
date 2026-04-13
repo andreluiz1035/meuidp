@@ -1,9 +1,7 @@
 name: Terraform Step4
 
 on:
-  push:
-    paths:
-      - 'step4/trigger.txt'
+  workflow_call:
 
 jobs:
   terraform:
