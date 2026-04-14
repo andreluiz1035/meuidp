@@ -34,7 +34,7 @@ jobs:
 
             terraform apply -auto-approve && break
 
-            echo "Falhou na tentativa $i. Aguardando 10 min antes de tentar novamente..."
-            sleep 600
+            echo "Falhou na tentativa $i. Aguardando 30 min antes de tentar novamente..."
+            sleep 1800
           done
         working-directory: ./step3
