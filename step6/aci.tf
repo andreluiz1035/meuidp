@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "aci" {
   location = var.location
 }
 
-# Referência ao ACR
+# Referência ao ACR existente
 data "azurerm_container_registry" "acr" {
   name                = var.acr_name
   resource_group_name = var.acr_resource_group
@@ -24,7 +24,7 @@ resource "azurerm_container_group" "app" {
   ip_address_type = "Public"
   dns_name_label  = var.aci_name
 
-  # 🔁 evita problema de timing com ACR
+  # 🔁 reinicia automaticamente (resolve timing de permissão)
   restart_policy = "Always"
 
   # 🔐 Managed Identity
@@ -33,9 +33,9 @@ resource "azurerm_container_group" "app" {
   }
 
   container {
-    name = "app"
+    name  = "app"
 
-    # 👇 monta a URL do ACR automaticamente
+    # 👇 monta corretamente a URL do ACR
     image = "${data.azurerm_container_registry.acr.login_server}/${var.container_image}"
 
     cpu    = "0.5"
@@ -48,7 +48,7 @@ resource "azurerm_container_group" "app" {
   }
 }
 
-# Permissão para puxar imagem do ACR
+# Permissão para o ACI puxar imagem do ACR
 resource "azurerm_role_assignment" "acr_pull" {
   principal_id         = azurerm_container_group.app.identity[0].principal_id
   role_definition_name = "AcrPull"
