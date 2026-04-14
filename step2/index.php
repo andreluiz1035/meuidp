@@ -80,6 +80,6 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
-/*Se a sessão ja existe, aproveita ela.
+#*Se a sessão ja existe, aproveita ela.
 
 echo "Logado como " . $_SESSION['user']['username'];

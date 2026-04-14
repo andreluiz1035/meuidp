@@ -29,3 +29,8 @@ jobs:
     needs: step5
     uses: ./.github/workflows/step6.yml
     secrets: inherit
+
+  step7:
+    needs: step6
+    uses: ./.github/workflows/step6.yml
+    secrets: inherit
