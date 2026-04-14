@@ -2,19 +2,33 @@ provider "azurerm" {
   features {}
 }
 
+# -----------------------------
 # Resource Group do ACI
+# -----------------------------
 resource "azurerm_resource_group" "aci" {
   name     = var.aci_resource_group
   location = var.location
 }
 
-# Referência ao ACR existente
+# -----------------------------
+# ACR existente
+# -----------------------------
 data "azurerm_container_registry" "acr" {
   name                = var.acr_name
   resource_group_name = var.acr_resource_group
 }
 
+# -----------------------------
+# Credenciais do ACR (ADMIN ENABLED)
+# -----------------------------
+locals {
+  acr_username = data.azurerm_container_registry.acr.admin_username
+  acr_password = data.azurerm_container_registry.acr.admin_password
+}
+
+# -----------------------------
 # Container Group (ACI)
+# -----------------------------
 resource "azurerm_container_group" "app" {
   name                = var.aci_name
   location            = azurerm_resource_group.aci.location
@@ -25,10 +39,6 @@ resource "azurerm_container_group" "app" {
   dns_name_label  = var.aci_name
 
   restart_policy = "Always"
-
-  identity {
-    type = "SystemAssigned"
-  }
 
   container {
     name  = "app"
@@ -43,11 +53,11 @@ resource "azurerm_container_group" "app" {
       protocol = "TCP"
     }
   }
-}
 
-# Permissão para o ACI puxar imagem do ACR
-resource "azurerm_role_assignment" "acr_pull" {
-  principal_id         = azurerm_container_group.app.identity[0].principal_id
-  role_definition_name = "AcrPull"
-  scope                = data.azurerm_container_registry.acr.id
+  # 🔐 AUTH no ACR (igual ao outro arquivo que funcionou)
+  image_registry_credential {
+    server   = data.azurerm_container_registry.acr.login_server
+    username = local.acr_username
+    password = local.acr_password
+  }
 }
