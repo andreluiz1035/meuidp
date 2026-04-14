@@ -19,6 +19,14 @@ data "azurerm_container_registry" "acr" {
 }
 
 # -----------------------------
+# Credenciais do ACR (ADMIN ENABLED)
+# -----------------------------
+locals {
+  acr_username = data.azurerm_container_registry.acr.admin_username
+  acr_password = data.azurerm_container_registry.acr.admin_password
+}
+
+# -----------------------------
 # Container Group (ACI)
 # -----------------------------
 resource "azurerm_container_group" "app" {
@@ -32,11 +40,6 @@ resource "azurerm_container_group" "app" {
 
   restart_policy = "Always"
 
-  # Managed Identity (ESSENCIAL)
-  identity {
-    type = "SystemAssigned"
-  }
-
   container {
     name  = "app"
 
@@ -49,19 +52,12 @@ resource "azurerm_container_group" "app" {
       port     = 80
       protocol = "TCP"
     }
+
+    # 🔐 Autenticação no ACR
+    image_registry_credential {
+      server   = data.azurerm_container_registry.acr.login_server
+      username = local.acr_username
+      password = local.acr_password
+    }
   }
-}
-
-# -----------------------------
-# Permissão do ACI para puxar imagem do ACR
-# -----------------------------
-resource "azurerm_role_assignment" "acr_pull" {
-  scope                = data.azurerm_container_registry.acr.id
-  role_definition_name = "AcrPull"
-
-  principal_id = azurerm_container_group.app.identity[0].principal_id
-
-  depends_on = [
-    azurerm_container_group.app
-  ]
 }
