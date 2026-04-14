@@ -24,10 +24,8 @@ resource "azurerm_container_group" "app" {
   ip_address_type = "Public"
   dns_name_label  = var.aci_name
 
-  # 🔁 reinicia automaticamente (resolve timing de permissão)
   restart_policy = "Always"
 
-  # 🔐 Managed Identity
   identity {
     type = "SystemAssigned"
   }
@@ -35,7 +33,6 @@ resource "azurerm_container_group" "app" {
   container {
     name  = "app"
 
-    # 👇 monta corretamente a URL do ACR
     image = "${data.azurerm_container_registry.acr.login_server}/${var.container_image}"
 
     cpu    = "0.5"
