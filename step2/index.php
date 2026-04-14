@@ -47,7 +47,7 @@ a resolução de nomes é externa, por conta do DNS da placa de rede do cliente.
 
 
 
-$IDP_URL = "http://meuidp123xyz-aci-dns-dns.brazilsouth.azurecontainer.io";
+$IDP_URL = "http://meuidp123xyz-aci-dns.brazilsouth.azurecontainer.io";
 $REDIRECT_URI = "http://meuapp123xyz-aci-dns.brazilsouth.azurecontainer.io/callback.php";
 
 /*
