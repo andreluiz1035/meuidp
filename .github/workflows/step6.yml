@@ -25,6 +25,27 @@ jobs:
         run: terraform init
         working-directory: ./step6
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+      - name: Terraform Apply com Retry
+        run: |
+          max=3
+          count=1
+
+          until [ $count -gt $max ]
+          do
+            echo "=============================="
+            echo "Tentativa $count de $max"
+            echo "=============================="
+
+            terraform apply -auto-approve && break
+
+            if [ $count -eq $max ]; then
+              echo "❌ Todas as tentativas falharam"
+              exit 1
+            fi
+
+            echo "⏳ Falhou... aguardando 30s antes da próxima tentativa"
+            sleep 300
+
+            count=$((count+1))
+          done
         working-directory: ./step6
