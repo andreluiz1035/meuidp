@@ -25,16 +25,24 @@ jobs:
         run: terraform init
         working-directory: ./step3
 
-      - name: Terraform Apply com Retry
+      - name: Terraform Apply (retry)
         run: |
-          for i in 1 2; do
+          set -e
+
+          for i in 1 2 3; do
             echo "=============================="
             echo "Tentativa $i de deploy"
             echo "=============================="
 
-            terraform apply -auto-approve && break
+            terraform apply -auto-approve && exit 0
 
-            echo "Falhou na tentativa $i. Aguardando 30 min antes de tentar novamente..."
-            sleep 1800
+            echo "Falhou na tentativa $i..."
+
+            if [ $i -lt 3 ]; then
+              echo "Aguardando 60s antes de tentar novamente..."
+              sleep 60
+            fi
           done
+
+          exit 1
         working-directory: ./step3
