@@ -2,6 +2,24 @@ provider "azurerm" {
   features {}
 }
 
+
+#  Managed Identity
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+sleep 1800
+
+# Permissão para o ACI puxar imagem do ACR
+resource "azurerm_role_assignment" "acr_pull" {
+  principal_id         = azurerm_container_group.app.identity[0].principal_id
+  role_definition_name = "AcrPull"
+  scope                = data.azurerm_container_registry.acr.id
+}
+
+1800
+
 # Resource Group do ACI
 resource "azurerm_resource_group" "aci" {
   name     = var.aci_resource_group
@@ -24,13 +42,10 @@ resource "azurerm_container_group" "app" {
   ip_address_type = "Public"
   dns_name_label  = var.aci_name
 
-  # 🔁 Reinício automático (resolve timing do ACR)
+  #  Reinício automático (resolve timing do ACR)
   restart_policy = "Always"
 
-  # 🔐 Managed Identity
-  identity {
-    type = "SystemAssigned"
-  }
+  
 
   container {
     name   = "app"
@@ -47,9 +62,3 @@ resource "azurerm_container_group" "app" {
   }
 }
 
-# Permissão para o ACI puxar imagem do ACR
-resource "azurerm_role_assignment" "acr_pull" {
-  principal_id         = azurerm_container_group.app.identity[0].principal_id
-  role_definition_name = "AcrPull"
-  scope                = data.azurerm_container_registry.acr.id
-}
