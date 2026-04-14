@@ -48,7 +48,7 @@ a resolução de nomes é externa, por conta do DNS da placa de rede do cliente.
 
 
 $IDP_URL = "http://meuidp123xyz-aci-dns-dns.brazilsouth.azurecontainer.io";
-$REDIRECT_URI = "http://meuapp123xyz-aci-dns-dns.brazilsouth.azurecontainer.io/callback.php";
+$REDIRECT_URI = "http://meuapp123xyz-aci-dns.brazilsouth.azurecontainer.io/callback.php";
 
 /*
 $_SESSION → array carregado pela função  session_start(), acredito que com todas as sessões.
